@@ -1,4 +1,4 @@
-import 'package:bookbase/features/book/presentation/widgets/book_thumbnail_card.dart';
+import 'package:bookbase/features/book/presentation/widgets/book_thumbnail_small_card.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -72,7 +72,7 @@ class BookCardShimmer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          BookThumbnailCard(coverId: 0),
+          BookThumbnailSmallCard(coverId: 0),
         ],
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:bookbase/features/book/domain/entities/book.dart';
 import 'package:bookbase/features/book/presentation/pages/book_details_page.dart';
-import 'package:bookbase/features/book/presentation/widgets/book_thumbnail_card.dart';
+import 'package:bookbase/features/book/presentation/widgets/book_thumbnail_small_card.dart';
 import 'package:flutter/material.dart';
 
 class BookCard extends StatelessWidget {
@@ -34,7 +34,7 @@ class BookCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                BookThumbnailCard(coverId: book.id),
+                BookThumbnailSmallCard(coverId: book.id),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
