@@ -62,6 +62,8 @@ The app allows users to:
 - Dart 3.x
 - Android Studio / VSCode with Flutter plugin
 
+
+
 ### ⚙️ Setup
 
 ```bash
