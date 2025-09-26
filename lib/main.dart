@@ -34,7 +34,7 @@ class BookBaseApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'BookBase',
-        theme: AppTheme.lightModeTheme,
+        theme: AppTheme.light,
         home: const BooksPage(),
         debugShowCheckedModeBanner: false,
       ),
