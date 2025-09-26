@@ -6,6 +6,14 @@ import 'package:bookbase/features/book/presentation/widgets/book_search_bar.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// Displays the main list of books and provides search functionality.
+///
+/// This page is the entry point for browsing and searching books.
+/// Features include:
+/// - Search bar with query input.
+/// - Pull-to-refresh functionality.
+/// - Infinite scroll pagination.
+/// - Error handling via [SnackBar].
 class BooksPage extends StatefulWidget {
   const BooksPage({super.key});
 
@@ -16,31 +24,37 @@ class BooksPage extends StatefulWidget {
 class _BooksPageState extends State<BooksPage> {
   final _scrollController = ScrollController();
   final _searchController = TextEditingController();
-  int pageNo = 1;
-  String defaultSearchQuery = 'harry';
+
+  int _pageNo = 1;
+  String _defaultSearchQuery = 'harry';
 
   @override
   void initState() {
     super.initState();
 
+    // Fetch initial books on page load.
     context.read<BookBloc>().add(
-      BookEvent.getAllBooks(defaultSearchQuery, 10, pageNo),
+      BookEvent.getAllBooks(_defaultSearchQuery, 10, _pageNo),
     );
 
     _scrollController.addListener(_onScroll);
   }
 
+  /// Scroll listener for triggering pagination.
+  ///
+  /// When the user scrolls near the bottom of the list,
+  /// dispatches a [BookEvent.loadMoreBooks] event.
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200) {
-      pageNo++;
+      _pageNo++;
       context.read<BookBloc>().add(
         BookEvent.loadMoreBooks(
           _searchController.text.trim().isEmpty
-              ? defaultSearchQuery
+              ? _defaultSearchQuery
               : _searchController.text.trim(),
           10,
-          pageNo,
+          _pageNo,
         ),
       );
     }
@@ -96,10 +110,12 @@ class _BooksPageState extends State<BooksPage> {
                   }
 
                   if (state is Failure) {
-                    return const Text('Failed to Load Books');
+                    return const Center(
+                      child: Text('Failed to Load Books'),
+                    );
                   }
 
-                  return const SizedBox();
+                  return const SizedBox.shrink();
                 },
               ),
             ],
@@ -111,7 +127,7 @@ class _BooksPageState extends State<BooksPage> {
 
   @override
   void dispose() {
-    _searchController
+    _scrollController
       ..removeListener(_onScroll)
       ..dispose();
 
@@ -120,15 +136,18 @@ class _BooksPageState extends State<BooksPage> {
     super.dispose();
   }
 
+  /// Fetches book data for a given [query].
+  ///
+  /// Resets pagination and dispatches [BookEvent.getAllBooks].
   Future<void> _fetchBookData(String query) async {
-    defaultSearchQuery = query;
-    pageNo = 1;
+    _defaultSearchQuery = query;
+    _pageNo = 1;
 
     context.read<BookBloc>().add(
       BookEvent.getAllBooks(
-        query.isEmpty ? defaultSearchQuery : query,
+        query.isEmpty ? _defaultSearchQuery : query,
         10,
-        pageNo,
+        _pageNo,
       ),
     );
   }
