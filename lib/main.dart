@@ -5,31 +5,39 @@ import 'package:bookbase/features/book/presentation/pages/books_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// Entry point of the BookBase application.
+///
+/// Ensures Flutter binding is initialized, sets up dependencies,
+/// and launches the root widget.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Init Service Locator
+
+  // Initialize dependency injection (service locator).
   await initDependencies();
 
-  runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => serviceLocator<BookBloc>()),
-      ],
-      child: const MyApp(),
-    ),
-  );
+  runApp(const BookBaseApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+/// Root widget of the BookBase application.
+///
+/// Provides global Bloc providers, theme configuration,
+/// and defines the initial route.
+class BookBaseApp extends StatelessWidget {
+  const BookBaseApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'BookBase',
-      theme: AppTheme.lightModeTheme,
-      home: const BooksPage(),
-      debugShowCheckedModeBanner: false,
+    return MultiBlocProvider(
+      providers: [
+        // Provide [BookBloc] to the widget tree.
+        BlocProvider(create: (_) => serviceLocator<BookBloc>()),
+      ],
+      child: MaterialApp(
+        title: 'BookBase',
+        theme: AppTheme.lightModeTheme,
+        home: const BooksPage(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
