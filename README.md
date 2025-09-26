@@ -62,6 +62,31 @@ The app allows users to:
 - Dart 3.x
 - Android Studio / VSCode with Flutter plugin
 
+## 🧩 Project Structure
+
+The project follows **Clean Architecture** with separation into **Data, Domain, and Presentation** layers.
+lib/
+│── core/                          # Core utilities (theme, errors, widgets, constants)
+│
+│── features/
+│   └── book/                      # Book feature module
+│       ├── data/                  # Data layer (API, models, repositories)
+│       │   ├── datasources/       # Remote & local data sources (API, SQLite)
+│       │   ├── models/            # Data Transfer Objects (DTOs)
+│       │   └── repositories/      # Repository implementations
+│       │
+│       ├── domain/                # Domain layer (business logic)
+│       │   ├── entities/          # Core business entities
+│       │   ├── repository/        # Abstract repository contracts
+│       │   └── usecases/          # Application use cases
+│       │
+│       └── presentation/          # Presentation layer (UI & state)
+│           ├── bloc/              # BLoC state management
+│           ├── pages/             # Screens / pages
+│           └── widgets/           # Reusable UI widgets
+│
+│── main.dart                      # App entry point
+
 ### ⚙️ Setup
 
 ```bash
