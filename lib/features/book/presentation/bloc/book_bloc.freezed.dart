@@ -444,21 +444,21 @@ mixin _$BookState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool isFirstFetch) loading,
     required TResult Function(String errorMessage) failure,
     required TResult Function(List<Book> books, bool isLoadingMore) success,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(String errorMessage)? failure,
     TResult? Function(List<Book> books, bool isLoadingMore)? success,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(bool isFirstFetch)? loading,
     TResult Function(String errorMessage)? failure,
     TResult Function(List<Book> books, bool isLoadingMore)? success,
     required TResult orElse(),
@@ -551,7 +551,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool isFirstFetch) loading,
     required TResult Function(String errorMessage) failure,
     required TResult Function(List<Book> books, bool isLoadingMore) success,
   }) {
@@ -562,7 +562,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(String errorMessage)? failure,
     TResult? Function(List<Book> books, bool isLoadingMore)? success,
   }) {
@@ -573,7 +573,7 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(bool isFirstFetch)? loading,
     TResult Function(String errorMessage)? failure,
     TResult Function(List<Book> books, bool isLoadingMore)? success,
     required TResult orElse(),
@@ -632,6 +632,8 @@ abstract class _$$LoadingImplCopyWith<$Res> {
     _$LoadingImpl value,
     $Res Function(_$LoadingImpl) then,
   ) = __$$LoadingImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isFirstFetch});
 }
 
 /// @nodoc
@@ -645,60 +647,86 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
   /// Create a copy of BookState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? isFirstFetch = null}) {
+    return _then(
+      _$LoadingImpl(
+        null == isFirstFetch
+            ? _value.isFirstFetch
+            : isFirstFetch // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
+  }
 }
 
 /// @nodoc
 
 class _$LoadingImpl implements Loading {
-  const _$LoadingImpl();
+  const _$LoadingImpl(this.isFirstFetch);
+
+  @override
+  final bool isFirstFetch;
 
   @override
   String toString() {
-    return 'BookState.loading()';
+    return 'BookState.loading(isFirstFetch: $isFirstFetch)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadingImpl &&
+            (identical(other.isFirstFetch, isFirstFetch) ||
+                other.isFirstFetch == isFirstFetch));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isFirstFetch);
+
+  /// Create a copy of BookState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
+      __$$LoadingImplCopyWithImpl<_$LoadingImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool isFirstFetch) loading,
     required TResult Function(String errorMessage) failure,
     required TResult Function(List<Book> books, bool isLoadingMore) success,
   }) {
-    return loading();
+    return loading(isFirstFetch);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(String errorMessage)? failure,
     TResult? Function(List<Book> books, bool isLoadingMore)? success,
   }) {
-    return loading?.call();
+    return loading?.call(isFirstFetch);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(bool isFirstFetch)? loading,
     TResult Function(String errorMessage)? failure,
     TResult Function(List<Book> books, bool isLoadingMore)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading();
+      return loading(isFirstFetch);
     }
     return orElse();
   }
@@ -742,7 +770,15 @@ class _$LoadingImpl implements Loading {
 }
 
 abstract class Loading implements BookState {
-  const factory Loading() = _$LoadingImpl;
+  const factory Loading(final bool isFirstFetch) = _$LoadingImpl;
+
+  bool get isFirstFetch;
+
+  /// Create a copy of BookState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -817,7 +853,7 @@ class _$FailureImpl implements Failure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool isFirstFetch) loading,
     required TResult Function(String errorMessage) failure,
     required TResult Function(List<Book> books, bool isLoadingMore) success,
   }) {
@@ -828,7 +864,7 @@ class _$FailureImpl implements Failure {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(String errorMessage)? failure,
     TResult? Function(List<Book> books, bool isLoadingMore)? success,
   }) {
@@ -839,7 +875,7 @@ class _$FailureImpl implements Failure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(bool isFirstFetch)? loading,
     TResult Function(String errorMessage)? failure,
     TResult Function(List<Book> books, bool isLoadingMore)? success,
     required TResult orElse(),
@@ -991,7 +1027,7 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(bool isFirstFetch) loading,
     required TResult Function(String errorMessage) failure,
     required TResult Function(List<Book> books, bool isLoadingMore) success,
   }) {
@@ -1002,7 +1038,7 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(bool isFirstFetch)? loading,
     TResult? Function(String errorMessage)? failure,
     TResult? Function(List<Book> books, bool isLoadingMore)? success,
   }) {
@@ -1013,7 +1049,7 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(bool isFirstFetch)? loading,
     TResult Function(String errorMessage)? failure,
     TResult Function(List<Book> books, bool isLoadingMore)? success,
     required TResult orElse(),
