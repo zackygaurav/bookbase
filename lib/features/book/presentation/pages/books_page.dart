@@ -25,7 +25,6 @@ class _BooksPageState extends State<BooksPage> {
   final _scrollController = ScrollController();
   final _searchController = TextEditingController();
 
-  int _pageNo = 1;
   String _defaultSearchQuery = 'harry';
 
   @override
@@ -34,7 +33,7 @@ class _BooksPageState extends State<BooksPage> {
 
     // Fetch initial books on page load.
     context.read<BookBloc>().add(
-      BookEvent.getAllBooks(_defaultSearchQuery, 10, _pageNo),
+      BookEvent.getAllBooks(query: _defaultSearchQuery, limit: 10),
     );
 
     _scrollController.addListener(_onScroll);
@@ -45,18 +44,16 @@ class _BooksPageState extends State<BooksPage> {
   /// When the user scrolls near the bottom of the list,
   /// dispatches a [BookEvent.loadMoreBooks] event.
   void _onScroll() {
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent - 200) {
-      _pageNo++;
-      context.read<BookBloc>().add(
-        BookEvent.loadMoreBooks(
-          _searchController.text.trim().isEmpty
-              ? _defaultSearchQuery
-              : _searchController.text.trim(),
-          10,
-          _pageNo,
-        ),
-      );
+    final bloc = context.read<BookBloc>();
+    final state = bloc.state;
+    if (state is Success) {
+      final threshold = 200;
+      if (_scrollController.position.pixels >=
+              _scrollController.position.maxScrollExtent - threshold &&
+          !state.isLoadingMore &&
+          !state.hasReachedMax) {
+        bloc.add(const BookEvent.loadMoreBooks());
+      }
     }
   }
 
@@ -91,7 +88,7 @@ class _BooksPageState extends State<BooksPage> {
               BlocBuilder<BookBloc, BookState>(
                 builder: (context, state) {
                   // Loading State
-                  if (state is Loading && state.isFirstFetch) {
+                  if (state is Loading) {
                     return const BookCardShimmerList();
                   }
 
@@ -107,8 +104,14 @@ class _BooksPageState extends State<BooksPage> {
                     return Expanded(
                       child: RefreshIndicator(
                         onRefresh: () async {
-                          await _fetchBookData(
-                            _searchController.text.trim(),
+                          // dispatch fetchBooks to reset to page 1
+                          context.read<BookBloc>().add(
+                            BookEvent.getAllBooks(
+                              query: _searchController.text.trim().isEmpty
+                                  ? _defaultSearchQuery
+                                  : _searchController.text.trim(),
+                              limit: 10,
+                            ),
                           );
                         },
                         child: BookCardList(
@@ -146,13 +149,11 @@ class _BooksPageState extends State<BooksPage> {
   /// Resets pagination and dispatches [BookEvent.getAllBooks].
   Future<void> _fetchBookData(String query) async {
     _defaultSearchQuery = query.isEmpty ? _defaultSearchQuery : query;
-    _pageNo = 1;
 
     context.read<BookBloc>().add(
       BookEvent.getAllBooks(
-        query.isEmpty ? _defaultSearchQuery : query,
-        10,
-        _pageNo,
+        query: query.isEmpty ? _defaultSearchQuery : query,
+        limit: 10,
       ),
     );
   }

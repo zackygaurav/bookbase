@@ -17,23 +17,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$BookEvent {
-  String get q => throw _privateConstructorUsedError;
-  int get limit => throw _privateConstructorUsedError;
-  int get pageNo => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String q, int limit, int pageNo) getAllBooks,
-    required TResult Function(String q, int limit, int pageNo) loadMoreBooks,
+    required TResult Function(String query, int limit) getAllBooks,
+    required TResult Function() loadMoreBooks,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String q, int limit, int pageNo)? getAllBooks,
-    TResult? Function(String q, int limit, int pageNo)? loadMoreBooks,
+    TResult? Function(String query, int limit)? getAllBooks,
+    TResult? Function()? loadMoreBooks,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String q, int limit, int pageNo)? getAllBooks,
-    TResult Function(String q, int limit, int pageNo)? loadMoreBooks,
+    TResult Function(String query, int limit)? getAllBooks,
+    TResult Function()? loadMoreBooks,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,20 +49,12 @@ mixin _$BookEvent {
     TResult Function(_LoadMoreBooks value)? loadMoreBooks,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
-
-  /// Create a copy of BookEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $BookEventCopyWith<BookEvent> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $BookEventCopyWith<$Res> {
   factory $BookEventCopyWith(BookEvent value, $Res Function(BookEvent) then) =
       _$BookEventCopyWithImpl<$Res, BookEvent>;
-  @useResult
-  $Res call({String q, int limit, int pageNo});
 }
 
 /// @nodoc
@@ -80,39 +69,16 @@ class _$BookEventCopyWithImpl<$Res, $Val extends BookEvent>
 
   /// Create a copy of BookEvent
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? q = null, Object? limit = null, Object? pageNo = null}) {
-    return _then(
-      _value.copyWith(
-            q: null == q
-                ? _value.q
-                : q // ignore: cast_nullable_to_non_nullable
-                      as String,
-            limit: null == limit
-                ? _value.limit
-                : limit // ignore: cast_nullable_to_non_nullable
-                      as int,
-            pageNo: null == pageNo
-                ? _value.pageNo
-                : pageNo // ignore: cast_nullable_to_non_nullable
-                      as int,
-          )
-          as $Val,
-    );
-  }
 }
 
 /// @nodoc
-abstract class _$$GetAllBlogsImplCopyWith<$Res>
-    implements $BookEventCopyWith<$Res> {
+abstract class _$$GetAllBlogsImplCopyWith<$Res> {
   factory _$$GetAllBlogsImplCopyWith(
     _$GetAllBlogsImpl value,
     $Res Function(_$GetAllBlogsImpl) then,
   ) = __$$GetAllBlogsImplCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({String q, int limit, int pageNo});
+  $Res call({String query, int limit});
 }
 
 /// @nodoc
@@ -128,20 +94,16 @@ class __$$GetAllBlogsImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? q = null, Object? limit = null, Object? pageNo = null}) {
+  $Res call({Object? query = null, Object? limit = null}) {
     return _then(
       _$GetAllBlogsImpl(
-        null == q
-            ? _value.q
-            : q // ignore: cast_nullable_to_non_nullable
+        query: null == query
+            ? _value.query
+            : query // ignore: cast_nullable_to_non_nullable
                   as String,
-        null == limit
+        limit: null == limit
             ? _value.limit
             : limit // ignore: cast_nullable_to_non_nullable
-                  as int,
-        null == pageNo
-            ? _value.pageNo
-            : pageNo // ignore: cast_nullable_to_non_nullable
                   as int,
       ),
     );
@@ -151,18 +113,17 @@ class __$$GetAllBlogsImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GetAllBlogsImpl implements _GetAllBlogs {
-  const _$GetAllBlogsImpl(this.q, this.limit, this.pageNo);
+  const _$GetAllBlogsImpl({required this.query, this.limit = 10});
 
   @override
-  final String q;
+  final String query;
   @override
+  @JsonKey()
   final int limit;
-  @override
-  final int pageNo;
 
   @override
   String toString() {
-    return 'BookEvent.getAllBooks(q: $q, limit: $limit, pageNo: $pageNo)';
+    return 'BookEvent.getAllBooks(query: $query, limit: $limit)';
   }
 
   @override
@@ -170,13 +131,12 @@ class _$GetAllBlogsImpl implements _GetAllBlogs {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetAllBlogsImpl &&
-            (identical(other.q, q) || other.q == q) &&
-            (identical(other.limit, limit) || other.limit == limit) &&
-            (identical(other.pageNo, pageNo) || other.pageNo == pageNo));
+            (identical(other.query, query) || other.query == query) &&
+            (identical(other.limit, limit) || other.limit == limit));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, q, limit, pageNo);
+  int get hashCode => Object.hash(runtimeType, query, limit);
 
   /// Create a copy of BookEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -189,30 +149,30 @@ class _$GetAllBlogsImpl implements _GetAllBlogs {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String q, int limit, int pageNo) getAllBooks,
-    required TResult Function(String q, int limit, int pageNo) loadMoreBooks,
+    required TResult Function(String query, int limit) getAllBooks,
+    required TResult Function() loadMoreBooks,
   }) {
-    return getAllBooks(q, limit, pageNo);
+    return getAllBooks(query, limit);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String q, int limit, int pageNo)? getAllBooks,
-    TResult? Function(String q, int limit, int pageNo)? loadMoreBooks,
+    TResult? Function(String query, int limit)? getAllBooks,
+    TResult? Function()? loadMoreBooks,
   }) {
-    return getAllBooks?.call(q, limit, pageNo);
+    return getAllBooks?.call(query, limit);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String q, int limit, int pageNo)? getAllBooks,
-    TResult Function(String q, int limit, int pageNo)? loadMoreBooks,
+    TResult Function(String query, int limit)? getAllBooks,
+    TResult Function()? loadMoreBooks,
     required TResult orElse(),
   }) {
     if (getAllBooks != null) {
-      return getAllBooks(q, limit, pageNo);
+      return getAllBooks(query, limit);
     }
     return orElse();
   }
@@ -250,37 +210,25 @@ class _$GetAllBlogsImpl implements _GetAllBlogs {
 }
 
 abstract class _GetAllBlogs implements BookEvent {
-  const factory _GetAllBlogs(
-    final String q,
-    final int limit,
-    final int pageNo,
-  ) = _$GetAllBlogsImpl;
+  const factory _GetAllBlogs({required final String query, final int limit}) =
+      _$GetAllBlogsImpl;
 
-  @override
-  String get q;
-  @override
+  String get query;
   int get limit;
-  @override
-  int get pageNo;
 
   /// Create a copy of BookEvent
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetAllBlogsImplCopyWith<_$GetAllBlogsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LoadMoreBooksImplCopyWith<$Res>
-    implements $BookEventCopyWith<$Res> {
+abstract class _$$LoadMoreBooksImplCopyWith<$Res> {
   factory _$$LoadMoreBooksImplCopyWith(
     _$LoadMoreBooksImpl value,
     $Res Function(_$LoadMoreBooksImpl) then,
   ) = __$$LoadMoreBooksImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String q, int limit, int pageNo});
 }
 
 /// @nodoc
@@ -294,93 +242,54 @@ class __$$LoadMoreBooksImplCopyWithImpl<$Res>
 
   /// Create a copy of BookEvent
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? q = null, Object? limit = null, Object? pageNo = null}) {
-    return _then(
-      _$LoadMoreBooksImpl(
-        null == q
-            ? _value.q
-            : q // ignore: cast_nullable_to_non_nullable
-                  as String,
-        null == limit
-            ? _value.limit
-            : limit // ignore: cast_nullable_to_non_nullable
-                  as int,
-        null == pageNo
-            ? _value.pageNo
-            : pageNo // ignore: cast_nullable_to_non_nullable
-                  as int,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 
 class _$LoadMoreBooksImpl implements _LoadMoreBooks {
-  const _$LoadMoreBooksImpl(this.q, this.limit, this.pageNo);
-
-  @override
-  final String q;
-  @override
-  final int limit;
-  @override
-  final int pageNo;
+  const _$LoadMoreBooksImpl();
 
   @override
   String toString() {
-    return 'BookEvent.loadMoreBooks(q: $q, limit: $limit, pageNo: $pageNo)';
+    return 'BookEvent.loadMoreBooks()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadMoreBooksImpl &&
-            (identical(other.q, q) || other.q == q) &&
-            (identical(other.limit, limit) || other.limit == limit) &&
-            (identical(other.pageNo, pageNo) || other.pageNo == pageNo));
+        (other.runtimeType == runtimeType && other is _$LoadMoreBooksImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, q, limit, pageNo);
-
-  /// Create a copy of BookEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadMoreBooksImplCopyWith<_$LoadMoreBooksImpl> get copyWith =>
-      __$$LoadMoreBooksImplCopyWithImpl<_$LoadMoreBooksImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String q, int limit, int pageNo) getAllBooks,
-    required TResult Function(String q, int limit, int pageNo) loadMoreBooks,
+    required TResult Function(String query, int limit) getAllBooks,
+    required TResult Function() loadMoreBooks,
   }) {
-    return loadMoreBooks(q, limit, pageNo);
+    return loadMoreBooks();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String q, int limit, int pageNo)? getAllBooks,
-    TResult? Function(String q, int limit, int pageNo)? loadMoreBooks,
+    TResult? Function(String query, int limit)? getAllBooks,
+    TResult? Function()? loadMoreBooks,
   }) {
-    return loadMoreBooks?.call(q, limit, pageNo);
+    return loadMoreBooks?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String q, int limit, int pageNo)? getAllBooks,
-    TResult Function(String q, int limit, int pageNo)? loadMoreBooks,
+    TResult Function(String query, int limit)? getAllBooks,
+    TResult Function()? loadMoreBooks,
     required TResult orElse(),
   }) {
     if (loadMoreBooks != null) {
-      return loadMoreBooks(q, limit, pageNo);
+      return loadMoreBooks();
     }
     return orElse();
   }
@@ -418,25 +327,7 @@ class _$LoadMoreBooksImpl implements _LoadMoreBooks {
 }
 
 abstract class _LoadMoreBooks implements BookEvent {
-  const factory _LoadMoreBooks(
-    final String q,
-    final int limit,
-    final int pageNo,
-  ) = _$LoadMoreBooksImpl;
-
-  @override
-  String get q;
-  @override
-  int get limit;
-  @override
-  int get pageNo;
-
-  /// Create a copy of BookEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LoadMoreBooksImplCopyWith<_$LoadMoreBooksImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _LoadMoreBooks() = _$LoadMoreBooksImpl;
 }
 
 /// @nodoc
@@ -444,23 +335,44 @@ mixin _$BookState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() loading,
     required TResult Function(String errorMessage) failure,
-    required TResult Function(List<Book> books, bool isLoadingMore) success,
+    required TResult Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )
+    success,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? loading,
     TResult? Function(String errorMessage)? failure,
-    TResult? Function(List<Book> books, bool isLoadingMore)? success,
+    TResult? Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )?
+    success,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? loading,
     TResult Function(String errorMessage)? failure,
-    TResult Function(List<Book> books, bool isLoadingMore)? success,
+    TResult Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )?
+    success,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -551,9 +463,16 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() loading,
     required TResult Function(String errorMessage) failure,
-    required TResult Function(List<Book> books, bool isLoadingMore) success,
+    required TResult Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )
+    success,
   }) {
     return initial();
   }
@@ -562,9 +481,16 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? loading,
     TResult? Function(String errorMessage)? failure,
-    TResult? Function(List<Book> books, bool isLoadingMore)? success,
+    TResult? Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )?
+    success,
   }) {
     return initial?.call();
   }
@@ -573,9 +499,16 @@ class _$InitialImpl implements Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? loading,
     TResult Function(String errorMessage)? failure,
-    TResult Function(List<Book> books, bool isLoadingMore)? success,
+    TResult Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )?
+    success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -632,8 +565,6 @@ abstract class _$$LoadingImplCopyWith<$Res> {
     _$LoadingImpl value,
     $Res Function(_$LoadingImpl) then,
   ) = __$$LoadingImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isFirstFetch});
 }
 
 /// @nodoc
@@ -647,86 +578,81 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
   /// Create a copy of BookState
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? isFirstFetch = null}) {
-    return _then(
-      _$LoadingImpl(
-        null == isFirstFetch
-            ? _value.isFirstFetch
-            : isFirstFetch // ignore: cast_nullable_to_non_nullable
-                  as bool,
-      ),
-    );
-  }
 }
 
 /// @nodoc
 
 class _$LoadingImpl implements Loading {
-  const _$LoadingImpl(this.isFirstFetch);
-
-  @override
-  final bool isFirstFetch;
+  const _$LoadingImpl();
 
   @override
   String toString() {
-    return 'BookState.loading(isFirstFetch: $isFirstFetch)';
+    return 'BookState.loading()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoadingImpl &&
-            (identical(other.isFirstFetch, isFirstFetch) ||
-                other.isFirstFetch == isFirstFetch));
+        (other.runtimeType == runtimeType && other is _$LoadingImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isFirstFetch);
-
-  /// Create a copy of BookState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
-      __$$LoadingImplCopyWithImpl<_$LoadingImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() loading,
     required TResult Function(String errorMessage) failure,
-    required TResult Function(List<Book> books, bool isLoadingMore) success,
+    required TResult Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )
+    success,
   }) {
-    return loading(isFirstFetch);
+    return loading();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? loading,
     TResult? Function(String errorMessage)? failure,
-    TResult? Function(List<Book> books, bool isLoadingMore)? success,
+    TResult? Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )?
+    success,
   }) {
-    return loading?.call(isFirstFetch);
+    return loading?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? loading,
     TResult Function(String errorMessage)? failure,
-    TResult Function(List<Book> books, bool isLoadingMore)? success,
+    TResult Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )?
+    success,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading(isFirstFetch);
+      return loading();
     }
     return orElse();
   }
@@ -770,15 +696,7 @@ class _$LoadingImpl implements Loading {
 }
 
 abstract class Loading implements BookState {
-  const factory Loading(final bool isFirstFetch) = _$LoadingImpl;
-
-  bool get isFirstFetch;
-
-  /// Create a copy of BookState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
@@ -853,9 +771,16 @@ class _$FailureImpl implements Failure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() loading,
     required TResult Function(String errorMessage) failure,
-    required TResult Function(List<Book> books, bool isLoadingMore) success,
+    required TResult Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )
+    success,
   }) {
     return failure(errorMessage);
   }
@@ -864,9 +789,16 @@ class _$FailureImpl implements Failure {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? loading,
     TResult? Function(String errorMessage)? failure,
-    TResult? Function(List<Book> books, bool isLoadingMore)? success,
+    TResult? Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )?
+    success,
   }) {
     return failure?.call(errorMessage);
   }
@@ -875,9 +807,16 @@ class _$FailureImpl implements Failure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? loading,
     TResult Function(String errorMessage)? failure,
-    TResult Function(List<Book> books, bool isLoadingMore)? success,
+    TResult Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )?
+    success,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -943,7 +882,13 @@ abstract class _$$SuccessImplCopyWith<$Res> {
     $Res Function(_$SuccessImpl) then,
   ) = __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Book> books, bool isLoadingMore});
+  $Res call({
+    List<Book> books,
+    int page,
+    int limit,
+    bool isLoadingMore,
+    bool hasReachedMax,
+  });
 }
 
 /// @nodoc
@@ -959,16 +904,34 @@ class __$$SuccessImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? books = null, Object? isLoadingMore = null}) {
+  $Res call({
+    Object? books = null,
+    Object? page = null,
+    Object? limit = null,
+    Object? isLoadingMore = null,
+    Object? hasReachedMax = null,
+  }) {
     return _then(
       _$SuccessImpl(
-        null == books
+        books: null == books
             ? _value._books
             : books // ignore: cast_nullable_to_non_nullable
                   as List<Book>,
+        page: null == page
+            ? _value.page
+            : page // ignore: cast_nullable_to_non_nullable
+                  as int,
+        limit: null == limit
+            ? _value.limit
+            : limit // ignore: cast_nullable_to_non_nullable
+                  as int,
         isLoadingMore: null == isLoadingMore
             ? _value.isLoadingMore
             : isLoadingMore // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        hasReachedMax: null == hasReachedMax
+            ? _value.hasReachedMax
+            : hasReachedMax // ignore: cast_nullable_to_non_nullable
                   as bool,
       ),
     );
@@ -978,8 +941,13 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements Success {
-  const _$SuccessImpl(final List<Book> books, {this.isLoadingMore = false})
-    : _books = books;
+  const _$SuccessImpl({
+    required final List<Book> books,
+    required this.page,
+    required this.limit,
+    this.isLoadingMore = false,
+    this.hasReachedMax = false,
+  }) : _books = books;
 
   final List<Book> _books;
   @override
@@ -990,12 +958,19 @@ class _$SuccessImpl implements Success {
   }
 
   @override
+  final int page;
+  @override
+  final int limit;
+  @override
   @JsonKey()
   final bool isLoadingMore;
+  @override
+  @JsonKey()
+  final bool hasReachedMax;
 
   @override
   String toString() {
-    return 'BookState.success(books: $books, isLoadingMore: $isLoadingMore)';
+    return 'BookState.success(books: $books, page: $page, limit: $limit, isLoadingMore: $isLoadingMore, hasReachedMax: $hasReachedMax)';
   }
 
   @override
@@ -1004,15 +979,22 @@ class _$SuccessImpl implements Success {
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl &&
             const DeepCollectionEquality().equals(other._books, _books) &&
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.limit, limit) || other.limit == limit) &&
             (identical(other.isLoadingMore, isLoadingMore) ||
-                other.isLoadingMore == isLoadingMore));
+                other.isLoadingMore == isLoadingMore) &&
+            (identical(other.hasReachedMax, hasReachedMax) ||
+                other.hasReachedMax == hasReachedMax));
   }
 
   @override
   int get hashCode => Object.hash(
     runtimeType,
     const DeepCollectionEquality().hash(_books),
+    page,
+    limit,
     isLoadingMore,
+    hasReachedMax,
   );
 
   /// Create a copy of BookState
@@ -1027,35 +1009,56 @@ class _$SuccessImpl implements Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(bool isFirstFetch) loading,
+    required TResult Function() loading,
     required TResult Function(String errorMessage) failure,
-    required TResult Function(List<Book> books, bool isLoadingMore) success,
+    required TResult Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )
+    success,
   }) {
-    return success(books, isLoadingMore);
+    return success(books, page, limit, isLoadingMore, hasReachedMax);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(bool isFirstFetch)? loading,
+    TResult? Function()? loading,
     TResult? Function(String errorMessage)? failure,
-    TResult? Function(List<Book> books, bool isLoadingMore)? success,
+    TResult? Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )?
+    success,
   }) {
-    return success?.call(books, isLoadingMore);
+    return success?.call(books, page, limit, isLoadingMore, hasReachedMax);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(bool isFirstFetch)? loading,
+    TResult Function()? loading,
     TResult Function(String errorMessage)? failure,
-    TResult Function(List<Book> books, bool isLoadingMore)? success,
+    TResult Function(
+      List<Book> books,
+      int page,
+      int limit,
+      bool isLoadingMore,
+      bool hasReachedMax,
+    )?
+    success,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(books, isLoadingMore);
+      return success(books, page, limit, isLoadingMore, hasReachedMax);
     }
     return orElse();
   }
@@ -1099,11 +1102,19 @@ class _$SuccessImpl implements Success {
 }
 
 abstract class Success implements BookState {
-  const factory Success(final List<Book> books, {final bool isLoadingMore}) =
-      _$SuccessImpl;
+  const factory Success({
+    required final List<Book> books,
+    required final int page,
+    required final int limit,
+    final bool isLoadingMore,
+    final bool hasReachedMax,
+  }) = _$SuccessImpl;
 
   List<Book> get books;
+  int get page;
+  int get limit;
   bool get isLoadingMore;
+  bool get hasReachedMax;
 
   /// Create a copy of BookState
   /// with the given fields replaced by the non-null parameter values.

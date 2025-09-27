@@ -2,15 +2,12 @@ part of 'book_bloc.dart';
 
 @freezed
 class BookEvent with _$BookEvent {
-  const factory BookEvent.getAllBooks(
-    final String q,
-    final int limit,
-    final int pageNo,
-  ) = _GetAllBlogs;
+  /// Fetch books for [query] (page reset to 1). Used for initial load and refresh.
+  const factory BookEvent.getAllBooks({
+    required String query,
+    @Default(10) final int limit,
+  }) = _GetAllBlogs;
 
-  const factory BookEvent.loadMoreBooks(
-    final String q,
-    final int limit,
-    final int pageNo,
-  ) = _LoadMoreBooks;
+  /// Load the next page using the last query/limit known to the Bloc.
+  const factory BookEvent.loadMoreBooks() = _LoadMoreBooks;
 }
