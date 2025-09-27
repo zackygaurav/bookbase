@@ -37,7 +37,6 @@ class BookRemoteDataSourceImpl implements BookRemoteDataSource {
           .map((e) => BookModel.fromJson(e))
           .toList();
     } catch (e) {
-      print(e.toString());
       throw ServerException(message: e.toString());
     }
   }

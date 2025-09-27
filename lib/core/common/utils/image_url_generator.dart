@@ -16,5 +16,5 @@
 /// Returns a [String] representing the URL of the medium-sized
 /// book cover image.
 String generateImageUrl({required int coverId}) {
-  return 'https://covers.openlibrary.org/b/id/${coverId}-M.jpg';
+  return 'https://covers.openlibrary.org/b/id/$coverId-M.jpg';
 }
