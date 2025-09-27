@@ -98,8 +98,18 @@ dev_dependencies:
   # unit testing.
   mocktail: ^1.0.4
 
+  # The "flutter_launcher_icons" package below is a command-line tool which
+  # simplifies the task of updating your Flutter app's launcher icons.
+  flutter_launcher_icons: ^0.14.4
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21
 
 # The following section is specific to Flutter packages.
 flutter:
