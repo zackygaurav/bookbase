@@ -1,7 +1,9 @@
+import 'package:bookbase/core/common/widgets/loader.dart';
 import 'package:bookbase/core/theme/pallete.dart';
 import 'package:bookbase/features/book/domain/entities/book.dart';
 import 'package:bookbase/features/book/presentation/widgets/book_card.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class BookCardList extends StatelessWidget {
   final List<Book> books;
@@ -38,7 +40,11 @@ class BookCardList extends StatelessWidget {
         } else {
           return const Padding(
             padding: EdgeInsets.all(16),
-            child: Center(child: CircularProgressIndicator()),
+            child: Center(
+              child: Loader(
+                animationPath: 'assets/animations/page_loading.json',
+              ),
+            ),
           );
         }
       },

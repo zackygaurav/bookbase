@@ -1,8 +1,10 @@
+import 'package:bookbase/core/common/widgets/loader.dart';
 import 'package:bookbase/core/common/widgets/show_snackbar.dart';
 import 'package:bookbase/features/book/presentation/bloc/book_bloc.dart';
 import 'package:bookbase/features/book/presentation/widgets/book_card_list.dart';
 import 'package:bookbase/features/book/presentation/widgets/book_card_shimmer_list.dart';
 import 'package:bookbase/features/book/presentation/widgets/book_search_bar.dart';
+import 'package:bookbase/features/book/presentation/widgets/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -101,6 +103,10 @@ class _BooksPageState extends State<BooksPage> {
 
                   // Success State
                   if (state is Success) {
+                    if (state.books.isEmpty) {
+                      return const EmptyWidget();
+                    }
+
                     return Expanded(
                       child: RefreshIndicator(
                         onRefresh: () async {
