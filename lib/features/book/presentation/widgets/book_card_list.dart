@@ -3,7 +3,6 @@ import 'package:bookbase/core/theme/pallete.dart';
 import 'package:bookbase/features/book/domain/entities/book.dart';
 import 'package:bookbase/features/book/presentation/widgets/book_card.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 class BookCardList extends StatelessWidget {
   final List<Book> books;
