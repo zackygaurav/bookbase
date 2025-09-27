@@ -15,7 +15,7 @@ class BookBloc extends Bloc<BookEvent, BookState> {
 
   BookBloc({required this.searchBooks}) : super(const Initial()) {
     // Emit the Loading State
-    on<BookEvent>((event, emit) => emit(const BookState.loading()));
+    on<BookEvent>((event, emit) => emit(const BookState.loading(true)));
 
     // Listen for Blogs
     on<_GetAllBlogs>(_onGetAllBlogs);

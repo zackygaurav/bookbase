@@ -90,28 +90,33 @@ class _BooksPageState extends State<BooksPage> {
               const SizedBox(height: 16.0),
               BlocBuilder<BookBloc, BookState>(
                 builder: (context, state) {
-                  if (state is Loading) {
+                  // Loading State
+                  if (state is Loading && state.isFirstFetch) {
                     return const BookCardShimmerList();
                   }
 
+                  // Failure State
+                  if (state is Failure) {
+                    return const Center(
+                      child: Text('Failed to Load Books'),
+                    );
+                  }
+
+                  // Success State
                   if (state is Success) {
                     return Expanded(
                       child: RefreshIndicator(
-                        onRefresh: () => _fetchBookData(
-                          _searchController.text.trim(),
-                        ),
+                        onRefresh: () async {
+                          await _fetchBookData(
+                            _searchController.text.trim(),
+                          );
+                        },
                         child: BookCardList(
                           books: state.books,
                           scrollController: _scrollController,
                           isLoadingMore: state.isLoadingMore,
                         ),
                       ),
-                    );
-                  }
-
-                  if (state is Failure) {
-                    return const Center(
-                      child: Text('Failed to Load Books'),
                     );
                   }
 
@@ -140,7 +145,7 @@ class _BooksPageState extends State<BooksPage> {
   ///
   /// Resets pagination and dispatches [BookEvent.getAllBooks].
   Future<void> _fetchBookData(String query) async {
-    _defaultSearchQuery = query;
+    _defaultSearchQuery = query.isEmpty ? _defaultSearchQuery : query;
     _pageNo = 1;
 
     context.read<BookBloc>().add(
