@@ -1,8 +1,8 @@
 # 📚 Book Finder App
 
 [![Flutter Version](https://img.shields.io/badge/flutter-3.24.0-blue.svg?logo=flutter)](https://flutter.dev)  
-[![Build](https://img.shields.io/github/actions/workflow/status/zackygaurav/book_finder_app/flutter.yml?branch=main&logo=github)](https://github.com/yourusername/book_finder_app/actions)  
-[![License](https://img.shields.io/github/license/zackygaurav/book_finder_app)](LICENSE)  
+[![Build](https://github.com/zackygaurav/bookbase/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/zackygaurav/bookbase/actions/workflows/main.yml)
+[![License](https://img.shields.io/github/license/zackygaurav/bookbase)](LICENSE)  
 [![Code Style: Lints](https://img.shields.io/badge/style-lints-blue.svg)](https://pub.dev/packages/flutter_lints)
 
 ---
